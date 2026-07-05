@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aitkena — Visual Intelligence for Construction</title>
+  <meta name="description" content="aitkena is building a unified visual intelligence platform for construction sites. New website coming soon." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aitkena.com" />
+  <meta property="og:title" content="aitkena — Visual Intelligence for Construction" />
+  <meta property="og:description" content="We are building a unified platform to capture, understand and experience construction sites through 360° imagery, drones, live video and AI." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="aitkena — Visual Intelligence for Construction" />
+  <meta name="twitter:description" content="A new aitkena experience is under construction." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F6FEB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='18' fill='white'%3EA%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue:        #1F6FEB;
+      --blue-dark:   #1558CC;
+      --blue-light:  #EBF2FF;
+      --blue-mid:    #5590F0;
+      --navy:        #0C1829;
+      --charcoal:    #1A2537;
+      --mid:         #3D4F66;
+      --muted:       #6B7E96;
+      --border:      #D0D9E6;
+      --border-blue: rgba(31,111,235,0.12);
+      --off-white:   #F7F9FC;
+      --white:       #FFFFFF;
+      --grid-line:   rgba(31,111,235,0.04);
+    }
+
+    html {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background-color: var(--off-white);
+      color: var(--charcoal);
+      line-height: 1.6;
+      height: 100%;
+      overflow-x: hidden;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ── Navigation ─────────────────────────────────────── */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(247, 249, 252, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-blue);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-img {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo-fallback {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: -0.04em;
+      display: none;
+    }
+
+    /* ── Buttons ─────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+                  box-shadow 0.15s ease, transform 0.12s ease;
+      border: 1.5px solid transparent;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      border-color: var(--blue);
+    }
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      border-color: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(31,111,235,0.28);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--charcoal);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .btn-nav {
+      padding: 8px 18px;
+      font-size: 13px;
+      background: transparent;
+      color: var(--blue);
+      border-color: var(--blue);
+    }
+    .btn-nav:hover {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    /* Disabled state — no hover, no cursor, muted appearance */
+    .btn-disabled,
+    .btn-disabled:hover,
+    .btn-disabled:active {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ── Page layout ─────────────────────────────────────── */
+    .page-wrap {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding-top: 64px;
+    }
+
+    /* ── Hero ────────────────────────────────────────────── */
+    .hero {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      min-height: calc(100vh - 64px - 53px - 73px);
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 56px 28px 48px;
+      gap: 56px;
+    }
+
+    .hero-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero-h1 {
+      font-size: clamp(22px, 2.6vw, 34px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .hero-lead {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+      max-width: 420px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--blue);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%   { box-shadow: 0 0 0 0 rgba(31,111,235,0.5); opacity: 1; }
+      60%  { box-shadow: 0 0 0 5px rgba(31,111,235,0);  opacity: 0.85; }
+      100% { box-shadow: 0 0 0 0 rgba(31,111,235,0);   opacity: 1; }
+    }
+
+    /* ── Hero Visual ─────────────────────────────────────── */
+    .hero-visual {
+      flex: 0 0 420px;
+      height: 500px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      display: block;
+    }
+
+    /* ── Capabilities Row ────────────────────────────────── */
+    .capabilities {
+      background: var(--white);
+      border-top: 1px solid var(--border-blue);
+      border-bottom: 1px solid var(--border-blue);
+    }
+
+    .capabilities-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: stretch;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .capabilities-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cap-item {
+      flex: 1;
+      min-width: 110px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      position: relative;
+    }
+
+    .cap-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .cap-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--blue);
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+
+    .cap-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .site-footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 18px 28px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-left {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-left p,
+    .footer-left a {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      text-decoration: none;
+    }
+
+    .footer-left strong {
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+
+    .footer-left a:hover {
+      color: var(--blue);
+    }
+
+    .footer-right {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: auto;
+        padding: 48px 24px 40px;
+        gap: 36px;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        padding: 0 20px;
+      }
+
+      .hero {
+        padding: 36px 20px 32px;
+        gap: 24px;
+      }
+
+      .hero-h1 {
+        font-size: 22px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .footer-left {
+        gap: 10px;
+        flex-direction: column;
+      }
+
+      .site-footer {
+        padding: 16px 20px;
+      }
+
+      .capabilities-inner {
+        padding: 0 16px;
+        flex-wrap: wrap;
+        overflow-x: visible;
+        justify-content: center;
+      }
+
+      .cap-item {
+        flex: 0 0 33.333%;
+        min-width: 0;
+        padding: 12px 6px;
+      }
+
+      .cap-item::after {
+        display: none !important;
+      }
+
+      .cap-item:nth-child(4),
+      .cap-item:nth-child(5) {
+        border-top: 1px solid var(--border);
+      }
+
+      .cap-label {
+        font-size: 10.5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Aitkena — home">
+        <img
+          src="assets/aitkena_logo.svg"
+          alt="Aitkena"
+          class="nav-logo-img"
+          onerror="this.style.display='none';document.querySelector('.nav-logo-fallback').style.display='block';"
+        />
+        <span class="nav-logo-fallback" aria-hidden="true">aitkena</span>
+      </a>
+      <span class="btn btn-nav btn-disabled" aria-disabled="true" role="button">Client Login</span>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- ── Hero ───────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="hero-heading">
+
+      <div class="hero-content">
+
+        <h1 class="hero-h1" id="hero-heading">
+          A new aitkena is <em>under construction.</em>
+        </h1>
+
+        <p class="hero-lead">
+          Our new website is on its way. Existing clients can access their projects through the dashboard.
+        </p>
+
+        <div class="hero-actions">
+          <a href="mailto:aditya@aitkena.com" class="btn btn-primary">
+            Contact Us
+          </a>
+        </div>
+
+        <div class="status-badge" role="status" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>New website in progress</span>
+        </div>
+      </div>
+
+      <!-- ── Hero Visual ────────────────────────────────── -->
+      <div class="hero-visual" role="img" aria-label="aitkena — construction worker with smart helmet, drone, and AI camera">
+        <img
+          src="assets/image (3).png"
+          alt="Construction worker with smart helmet, drone, and AI-powered site camera"
+          class="hero-visual-img"
+        />
+      </div>
+    </section>
+
+    <!-- ── Capabilities Row ──────────────────────────────── -->
+    <div class="capabilities" role="complementary" aria-label="Platform capabilities">
+      <div class="capabilities-inner">
+        <div class="cap-item">
+          <span class="cap-dot"></span>
+          <span class="cap-label">360° Site Capture</span>
+        </div>
+        <div class="cap-item">
+          <span class="cap-dot"></span>
+          <span class="cap-label">Drone Intelligence</span>
+        </div>
+        <div class="cap-item">
+          <span class="cap-dot"></span>
+          <span class="cap-label">Live Site Visibility</span>
+        </div>
+        <div class="cap-item">
+          <span class="cap-dot"></span>
+          <span class="cap-label">AI Reports</span>
+        </div>
+        <div class="cap-item">
+          <span class="cap-dot"></span>
+          <span class="cap-label">AR &amp; VR Experiences</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Footer ────────────────────────────────────────── -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <p><strong>Aitkena Infrasewa Private Limited</strong></p>
+          <p>Delhi NCR, India</p>
+          <a href="mailto:aditya@aitkena.com">aditya@aitkena.com</a>
+        </div>
+        <p class="footer-right">
+          &copy; <span id="year"></span> Aitkena Infrasewa Private Limited
+        </p>
+      </div>
+    </footer>
+
+  </div><!-- /.page-wrap -->
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
