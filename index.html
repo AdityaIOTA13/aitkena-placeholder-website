@@ -373,6 +373,135 @@
       color: var(--muted);
     }
 
+    /* ── Content Sections ───────────────────────────────── */
+    .section {
+      padding: 76px 28px;
+      width: 100%;
+    }
+
+    .section-white {
+      background: var(--white);
+      border-top: 1px solid var(--border-blue);
+      border-bottom: 1px solid var(--border-blue);
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-h2 {
+      font-size: clamp(18px, 2vw, 26px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.26;
+      letter-spacing: -0.018em;
+      margin-bottom: 10px;
+    }
+
+    .section-body {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.68;
+      max-width: 580px;
+      margin-bottom: 28px;
+    }
+
+    /* ── Video embed ─────────────────────────────────────── */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .demo-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ── Content images ──────────────────────────────────── */
+    .content-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    /* ── About grid ──────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-img {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 28px rgba(0,0,0,0.1);
+      line-height: 0;
+    }
+
+    .about-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .about-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-meta-item {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .about-meta-item strong {
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+
+    .about-meta-item a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .about-meta-item a:hover {
+      text-decoration: underline;
+    }
+
     /* ── Responsive ──────────────────────────────────────── */
     @media (max-width: 960px) {
       .hero {
@@ -385,6 +514,11 @@
 
       .hero-visual {
         display: none;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
     }
 
@@ -400,6 +534,10 @@
 
       .hero-h1 {
         font-size: 22px;
+      }
+
+      .section {
+        padding: 52px 20px;
       }
 
       .footer-inner {
@@ -497,6 +635,84 @@
           alt="Construction worker with smart helmet, drone, and AI-powered site camera"
           class="hero-visual-img"
         />
+      </div>
+    </section>
+
+    <!-- ── Demo ─────────────────────────────────────────────── -->
+    <section class="section section-white" id="demo">
+      <div class="section-inner">
+        <p class="section-label">Product Demo</p>
+        <h2 class="section-h2">See aitkena in action</h2>
+        <p class="section-body">Watch how we capture, process and deliver visual intelligence on a real construction site — then explore a live 360° walkthrough.</p>
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/lPPlo90fDf0"
+            title="aitkena product demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="demo-links">
+          <a href="https://360-cbre.vercel.app/" target="_blank" rel="noopener" class="btn btn-secondary">
+            Try live 360° walkthrough &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── System of Record ──────────────────────────────────── -->
+    <section class="section" id="product">
+      <div class="section-inner">
+        <p class="section-label">What we build</p>
+        <h2 class="section-h2">A system of record for every active site</h2>
+        <p class="section-body">As a building grows from foundation to finishing, we capture each phase into a timestamped visual dataset — so project owners, architects and lenders can revisit any moment for progress, proof and accountability.</p>
+        <img
+          src="assets/System_of_record.jpg"
+          alt="Aitkena system of record — Foundation, Superstructure and Finishing phases captured over time"
+          class="content-img"
+        />
+      </div>
+    </section>
+
+    <!-- ── IoT Infrastructure ────────────────────────────────── -->
+    <section class="section section-white" id="technology">
+      <div class="section-inner">
+        <p class="section-label">Technology</p>
+        <h2 class="section-h2">Static &amp; IoT infrastructure on site</h2>
+        <p class="section-body">For sites requiring continuous monitoring, we deploy fixed cameras and smart helmets connected via an IoT mesh. Data streams through a local NVIDIA gateway and into our cloud on AWS — feeding computer vision models that surface anomalies and generate reports automatically.</p>
+        <img
+          src="assets/iot-infra.jpg"
+          alt="Aitkena IoT infrastructure diagram — smart helmet, fixed AI camera and drone connected through NVIDIA local gateway to AWS cloud"
+          class="content-img"
+        />
+      </div>
+    </section>
+
+    <!-- ── About ─────────────────────────────────────────────── -->
+    <section class="section" id="about">
+      <div class="section-inner">
+        <div class="about-grid">
+          <div class="about-img">
+            <img
+              src="assets/marketing_image.jpg"
+              alt="360° capture in progress on a real construction site in Mumbai — aitkena, Harvard Innovation Labs"
+            />
+          </div>
+          <div class="about-content">
+            <p class="section-label">About</p>
+            <h2 class="section-h2">Built for Indian infrastructure</h2>
+            <p class="section-body" style="margin-bottom: 0;">
+              aitkena is developing visual intelligence for the Indian construction industry.
+              We work with developers, contractors and project owners to replace manual site visits with a live, AI-powered record — capturing every floor, every week, from foundation to handover.
+            </p>
+            <div class="about-meta">
+              <p class="about-meta-item"><strong>Founder</strong> &mdash; Aditya Agarwal</p>
+              <p class="about-meta-item"><strong>Company</strong> &mdash; Aitkena Infrasewa Private Limited</p>
+              <p class="about-meta-item"><strong>Location</strong> &mdash; Delhi NCR, India</p>
+              <p class="about-meta-item"><strong>Contact</strong> &mdash; <a href="mailto:aditya@aitkena.com">aditya@aitkena.com</a></p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
