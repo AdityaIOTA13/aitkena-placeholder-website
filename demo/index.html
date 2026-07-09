@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aitkena — Live 360° Demo</title>
+  <meta name="description" content="Experience aitkena's live 360° construction site walkthrough. Navigate through every floor, flag issues, and explore site progress." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aitkena.com/demo" />
+  <meta property="og:title" content="aitkena — Live 360° Demo" />
+  <meta property="og:description" content="Experience aitkena's live 360° construction site walkthrough." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231F6FEB'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #1F6FEB;
+      --navy:      #0C1829;
+      --charcoal:  #1A2537;
+      --muted:     #6B7E96;
+      --border:    rgba(31,111,235,0.12);
+      --off-white: #F7F9FC;
+      --white:     #FFFFFF;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--off-white);
+      overflow: hidden; /* no page scroll — the iframe scrolls internally */
+    }
+
+    /* ── Nav ───────────────────────────────────────────────── */
+    .site-nav {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      background: rgba(247,249,252,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      gap: 16px;
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 24px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-logo-fallback {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: -0.04em;
+      display: none;
+    }
+
+    .nav-sep {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .nav-crumb {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .nav-spacer { flex: 1; }
+
+    .nav-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 10px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-green 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-green {
+      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      60%  { box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--blue);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1.5px solid var(--blue);
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-back:hover {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    /* ── Iframe wrapper ─────────────────────────────────────── */
+    .demo-wrap {
+      width: 100%;
+      height: calc(100vh - 52px);
+      position: relative;
+    }
+
+    .demo-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Loading state */
+    .demo-wrap::before {
+      content: 'Loading 360° walkthrough…';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: inherit;
+      z-index: -1;
+    }
+
+    @media (max-width: 480px) {
+      .nav-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav" role="navigation" aria-label="Demo navigation">
+    <a href="/" class="nav-logo" aria-label="Back to aitkena home">
+      <img
+        src="../assets/aitkena_logo.svg"
+        alt="aitkena"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+      />
+      <span class="nav-logo-fallback">aitkena</span>
+    </a>
+    <span class="nav-sep" aria-hidden="true"></span>
+    <span class="nav-crumb">360° Demo</span>
+    <span class="nav-spacer"></span>
+    <span class="nav-badge">
+      <span class="live-dot" aria-hidden="true"></span>
+      Live walkthrough
+    </span>
+    <a href="/" class="btn-back">← Back to site</a>
+  </nav>
+
+  <div class="demo-wrap">
+    <iframe
+      src="https://360-cbre.vercel.app/"
+      title="aitkena live 360° construction site walkthrough"
+      allow="fullscreen; gyroscope; accelerometer"
+      loading="lazy"
+    ></iframe>
+  </div>
+
+</body>
+</html>
